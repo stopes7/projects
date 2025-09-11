@@ -1,0 +1,23 @@
+{% extends "quotes/base.html" %}
+{% block title %}Случайная цитата{% endblock %}
+{% block content %}
+  {% if quote %}
+    <article>
+      <h2>{{ quote.text }}</h2>
+      <p><em>{{ quote.source }}</em></p>
+      <p>Просмотры: <span id="views">{{ quote.views }}</span></p>
+
+      <div>
+        <button id="like-btn" data-id="{{ quote.id }}">👍</button>
+        <span id="likes">{{ quote.likes }}</span>
+
+        <button id="dislike-btn" data-id="{{ quote.id }}">👎</button>
+        <span id="dislikes">{{ quote.dislikes }}</span>
+      </div>
+
+      <p><a href="{% url 'random_quote' %}">Другая случайная цитата</a></p>
+    </article>
+  {% else %}
+    <p>Цитат пока нет. <a href="{% url 'add_quote' %}">Добавить первую</a>.</p>
+  {% endif %}
+{% endblock %}

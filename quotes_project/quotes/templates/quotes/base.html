@@ -1,0 +1,31 @@
+{% load static %}
+<script src="{% static 'quotes/basic.js' %}"></script>
+
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>{% block title %}Quotes{% endblock %}</title>
+  <script src="{% static 'quotes/basic.js' %}"></script>
+</head>
+<body>
+  <header>
+    <nav>
+      <a href="{% url 'random_quote' %}">Случайная цитата</a> |
+      <a href="{% url 'top_quotes' %}">ТОП-10</a> |
+      <a href="{% url 'add_quote' %}">Добавить цитату</a>
+    </nav>
+    <hr>
+  </header>
+
+  <main>
+    {% block content %}{% endblock %}
+  </main>
+
+  <footer>
+    <hr>
+    <small>Simple quotes app</small>
+  </footer>
+</body>
+</html>

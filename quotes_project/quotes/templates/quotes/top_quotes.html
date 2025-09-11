@@ -1,0 +1,15 @@
+{% extends "quotes/base.html" %}
+{% block title %}ТОП цитат{% endblock %}
+{% block content %}
+  <h1>ТОП-10 цитат по лайкам</h1>
+  <ol>
+    {% for q in quotes %}
+      <li>
+        {{ q.text }} — <em>{{ q.source }}</em>
+        (Лайки: {{ q.likes }}, Просмотры: {{ q.views }})
+      </li>
+    {% empty %}
+      <li>Нет цитат.</li>
+    {% endfor %}
+  </ol>
+{% endblock %}
