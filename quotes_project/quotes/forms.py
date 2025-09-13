@@ -5,8 +5,24 @@ class QuoteForm(forms.ModelForm):
     class Meta:
         model = Quote
         fields = ["text", "source", "weight"]
+        labels = {
+            "text": "Текст цитаты",
+            "source": "Источник (фильм, книга и т.п.)",
+            "weight": "Вес (чем больше, тем выше шанс появления)",
+        }
         widgets = {
-            "text": forms.Textarea(attrs={"rows":3, "cols":60}),
-            "source": forms.TextInput(attrs={"placeholder":"Фильм, книга и т.п."}),
-            "weight": forms.NumberInput(attrs={"min":1}),
+            "text": forms.Textarea(attrs={
+                "rows": 3,
+                "class": "form-control",
+                "placeholder": "Введите цитату"
+            }),
+            "source": forms.TextInput(attrs={
+                "class": "form-control",
+                "placeholder": "Например: Матрица, Гарри Поттер..."
+            }),
+            "weight": forms.NumberInput(attrs={
+                "class": "form-control",
+                "min": 1,
+                "value": 1
+            }),
         }
