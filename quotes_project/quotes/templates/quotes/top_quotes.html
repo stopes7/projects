@@ -1,15 +1,18 @@
 {% extends "quotes/base.html" %}
-{% block title %}ТОП цитат{% endblock %}
+{% block title %}ТОП-10 цитат{% endblock %}
 {% block content %}
-  <h1>ТОП-10 цитат по лайкам</h1>
-  <ol>
+  <h1 class="mb-4">ТОП-10 цитат по лайкам</h1>
+  <div class="list-group">
     {% for q in quotes %}
-      <li>
-        {{ q.text }} — <em>{{ q.source }}</em>
-        (Лайки: {{ q.likes }}, Просмотры: {{ q.views }})
-      </li>
+      <div class="list-group-item">
+        <blockquote class="blockquote mb-1">
+          <p>{{ q.text }}</p>
+          <footer class="blockquote-footer">{{ q.source }}</footer>
+        </blockquote>
+        <small>👍 {{ q.likes }} | 👎 {{ q.dislikes }} | 👁 {{ q.views }}</small>
+      </div>
     {% empty %}
-      <li>Нет цитат.</li>
+      <div class="alert alert-warning">Нет цитат.</div>
     {% endfor %}
-  </ol>
+  </div>
 {% endblock %}

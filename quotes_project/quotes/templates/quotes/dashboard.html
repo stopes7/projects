@@ -1,0 +1,36 @@
+{% extends "quotes/base.html" %}
+{% block title %}Дашборд{% endblock %}
+{% block content %}
+  <h1 class="mb-4">Дашборд</h1>
+
+  <div class="row">
+    <div class="col-md-6">
+      <canvas id="likesChart"></canvas>
+    </div>
+    <div class="col-md-6">
+      <canvas id="viewsChart"></canvas>
+    </div>
+  </div>
+
+  <script>
+    const labels = {{ sources|safe }};
+    const likesData = {{ likes|safe }};
+    const viewsData = {{ views|safe }};
+
+    new Chart(document.getElementById('likesChart'), {
+      type: 'bar',
+      data: {
+        labels: labels,
+        datasets: [{ label: 'Лайки', data: likesData, backgroundColor: 'green' }]
+      }
+    });
+
+    new Chart(document.getElementById('viewsChart'), {
+      type: 'bar',
+      data: {
+        labels: labels,
+        datasets: [{ label: 'Просмотры', data: viewsData, backgroundColor: 'blue' }]
+      }
+    });
+  </script>
+{% endblock %}

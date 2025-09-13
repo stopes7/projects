@@ -5,18 +5,26 @@ from .utils import get_random_quote
 from .forms import QuoteForm
 
 def random_quote(request):
+    # Обработка POST (лайк/дизлайк) — сначала обрабатываем POST, чтобы не менять views
+    if request.method == "POST":
+        quote_id = request.POST.get("quote_id")
+        if quote_id:
+            try:
+                q = Quote.objects.get(pk=quote_id)
+            except Quote.DoesNotExist:
+                return redirect("random_quote")
+            if "like" in request.POST:
+                Quote.objects.filter(pk=q.pk).update(likes=F("likes") + 1)
+            elif "dislike" in request.POST:
+                Quote.objects.filter(pk=q.pk).update(dislikes=F("dislikes") + 1)
+        # После обработки POST — редирект на GET (чтобы избежать повторной отправки формы)
+        return redirect("random_quote")
+
+    # GET — выбираем случайную цитату и увеличиваем views
     quote = get_random_quote()
     if quote:
         Quote.objects.filter(pk=quote.pk).update(views=F("views") + 1)
         quote.refresh_from_db()
-
-        # обработка лайка/дизлайка через обычную форму
-        if request.method == "POST":
-            if "like" in request.POST:
-                Quote.objects.filter(pk=quote.pk).update(likes=F("likes") + 1)
-            elif "dislike" in request.POST:
-                Quote.objects.filter(pk=quote.pk).update(dislikes=F("dislikes") + 1)
-            return redirect("random_quote")
 
     return render(request, "quotes/random_quote.html", {"quote": quote})
 
@@ -36,3 +44,15 @@ def add_quote(request):
     else:
         form = QuoteForm()
     return render(request, "quotes/add_quote.html", {"form": form})
+
+
+def dashboard(request):
+    quotes = Quote.objects.all()
+    sources = [q.source for q in quotes]
+    likes = [q.likes for q in quotes]
+    views = [q.views for q in quotes]
+    return render(request, "quotes/dashboard.html", {
+        "sources": sources,
+        "likes": likes,
+        "views": views,
+    })
