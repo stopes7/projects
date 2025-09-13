@@ -7,7 +7,7 @@ SECRET_KEY = "change-this-to-a-secure-secret-for-prod"
 
 DEBUG = True
 
-ALLOWED_HOSTS = ["localhost", "127.0.0.1"]
+ALLOWED_HOSTS = ["localhost", ".ngrok.io" ,"127.0.0.1"]
 
 INSTALLED_APPS = [
     "django.contrib.admin",
