@@ -12,6 +12,9 @@ ALLOWED_HOSTS = ["localhost",
                  ".ngrok-free.app",
                  ]
 
+CSRF_TRUSTED_ORIGINS = [
+    "https://*.ngrok-free.app",   
+
 INSTALLED_APPS = [
     "django.contrib.admin",
     "django.contrib.auth",

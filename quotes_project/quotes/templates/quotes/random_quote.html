@@ -10,18 +10,31 @@
         </blockquote>
         <p class="text-muted">Просмотры: {{ quote.views }}</p>
 
+        <!-- Форма с csrf_token -->
         <form method="post" class="d-flex gap-3">
           {% csrf_token %}
           <input type="hidden" name="quote_id" value="{{ quote.id }}">
-          <button type="submit" name="like" class="btn btn-success">👍 {{ quote.likes }}</button>
-          <button type="submit" name="dislike" class="btn btn-danger">👎 {{ quote.dislikes }}</button>
+
+          <button type="submit" name="like" class="btn btn-success">
+            👍 {{ quote.likes }}
+          </button>
+
+          <button type="submit" name="dislike" class="btn btn-danger">
+            👎 {{ quote.dislikes }}
+          </button>
         </form>
       </div>
     </div>
+
     <div class="mt-3">
-      <a href="{% url 'random_quote' %}" class="btn btn-secondary">Показать другую</a>
+      <a href="{% url 'random_quote' %}" class="btn btn-secondary">
+        Показать другую
+      </a>
     </div>
   {% else %}
-    <div class="alert alert-info">Цитат пока нет. <a href="{% url 'add_quote' %}">Добавить первую</a>.</div>
+    <div class="alert alert-info">
+      Цитат пока нет. <a href="{% url 'add_quote' %}">Добавить первую</a>.
+    </div>
   {% endif %}
 {% endblock %}
+
