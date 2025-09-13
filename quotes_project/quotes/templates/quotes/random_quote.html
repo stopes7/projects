@@ -5,15 +5,15 @@
     <article>
       <h2>{{ quote.text }}</h2>
       <p><em>{{ quote.source }}</em></p>
-      <p>Просмотры: <span id="views">{{ quote.views }}</span></p>
+      <p>Просмотры: {{ quote.views }}</p>
 
-      <div>
-        <button id="like-btn" data-id="{{ quote.id }}">👍</button>
-        <span id="likes">{{ quote.likes }}</span>
-
-        <button id="dislike-btn" data-id="{{ quote.id }}">👎</button>
-        <span id="dislikes">{{ quote.dislikes }}</span>
-      </div>
+      <form method="post">
+        {% csrf_token %}
+        <button type="submit" name="like">👍</button>
+        {{ quote.likes }}
+        <button type="submit" name="dislike">👎</button>
+        {{ quote.dislikes }}
+      </form>
 
       <p><a href="{% url 'random_quote' %}">Другая случайная цитата</a></p>
     </article>

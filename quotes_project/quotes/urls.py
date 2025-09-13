@@ -3,10 +3,7 @@ from . import views
 
 urlpatterns = [
     path("", views.random_quote, name="random_quote"),
-    path("like/<int:pk>/", views.like_quote, name="like_quote"),
-    path("dislike/<int:pk>/", views.dislike_quote, name="dislike_quote"),
     path("top/", views.top_quotes, name="top_quotes"),
     path("add/", views.add_quote, name="add_quote"),
 ]
-
 
