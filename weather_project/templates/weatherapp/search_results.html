@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>Результаты поиска</h1>
+<form method="get" action="{% url 'search_results' %}" class="mb-3">
+<div class="input-group">
+<input type="text" class="form-control" name="q" value="{{ q }}" required>
+<button class="btn btn-primary" type="submit">Поиск</button>
+</div>
+</form>
+
+<div class="list-group">
+{% for res in results %}
+<div class="list-group-item d-flex justify-content-between align-items-center">
+<div>
+<div><strong>{{ res.name }}</strong>{% if res.state %}, {{ res.state }}{% endif %}, {{ res.country }}</div>
+<div class="small">lat: {{ res.lat }}, lon: {{ res.lon }}</div>
+</div>
+<form method="post" action="{% url 'add_location' %}">
+{% csrf_token %}
+<input type="hidden" name="name" value="{{ res.name }}{% if res.state %}, {{ res.state }}{% endif %}, {{ res.country }}">
+<input type="hidden" name="lat" value="{{ res.lat }}">
+<input type="hidden" name="lon" value="{{ res.lon }}">
+<button class="btn btn-sm btn-success">Добавить</button>
+</form>
+</div>
+{% empty %}
+<div class="list-group-item">Ничего не найдено.</div>
+{% endfor %}
+</div>
+{% endblock %}

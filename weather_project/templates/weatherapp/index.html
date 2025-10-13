@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% block title %}Главная — WeatherApp{% endblock %}
+{% block content %}
+<h1>Текущая погода</h1>
+<form method="get" action="{% url 'search_results' %}" class="mb-3">
+<div class="input-group">
+<input type="text" class="form-control" name="q" placeholder="Поиск локации" required>
+<button class="btn btn-primary" type="submit">Поиск</button>
+</div>
+</form>
+
+<h2>Мои локации</h2>
+<ul class="list-group">
+{% for item in weather_data %}
+<li class="list-group-item d-flex justify-content-between align-items-center">
+<div>
+<strong>{{ item.name }}</strong>
+{% if item.temp is not None %} — {{ item.temp }}°C {% else %} — недоступно {% endif %}
+</div>
+<form method="post" action="{% url 'delete_location' item.id %}">
+{% csrf_token %}
+<button class="btn btn-sm btn-outline-danger">Удалить</button>
+</form>
+</li>
+{% empty %}
+<li class="list-group-item">Список пуст.</li>
+{% endfor %}
+</ul>
+{% endblock %}

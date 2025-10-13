@@ -1,0 +1,30 @@
+weather_project/
+├── config/
+│   ├── __init__.py
+│   ├── settings.py
+│   ├── urls.py
+│   └── wsgi.py
+├── weatherapp/
+│   ├── __init__.py
+│   ├── admin.py
+│   ├── apps.py
+│   ├── forms.py
+│   ├── models.py
+│   ├── services/
+│   │   ├── __init__.py
+│   │   └── openweather.py
+│   ├── tests/
+│   │   ├── __init__.py
+│   │   └── test_openweather.py
+│   ├── urls.py
+│   └── views.py
+├── templates/
+│   ├── base.html
+│   ├── registration/
+│   │   ├── login.html
+│   │   └── signup.html
+│   └── weatherapp/
+│       ├── index.html
+│       └── search_results.html
+├── manage.py
+└── pyproject.toml
